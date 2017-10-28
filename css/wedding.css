@@ -149,8 +149,8 @@ a {
     background: rgba(79,195,247, 0.1); }
 
 .content-section {
-  padding-top: 150px;
-  padding-bottom: 150px; }
+  padding-top: 100px;
+  padding-bottom: 100px; }
 
 .download-section {
   color: whitesmoke;
@@ -167,8 +167,8 @@ a {
 
 @media (min-width: 992px) {
   .content-section {
-    padding-top: 200px;
-    padding-bottom: 200px; }
+    padding-top: 100px;
+    padding-bottom: 100px; }
   #map {
     height: 350px; } }
 
@@ -228,3 +228,11 @@ img::-moz-selection {
 
 body {
   -webkit-tap-highlight-color: rgba(255,171, 0.2); }
+
+.wedding-logo{
+    width: 300px;
+    height: 300px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
