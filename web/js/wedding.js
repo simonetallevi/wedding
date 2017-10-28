@@ -179,4 +179,8 @@ function init() {
     position: {lat: 39.201810, lng: 9.563455}
   });
 
+  marker.addListener('click', function() {
+    window.open("https://www.google.it/maps/place/Maklas/@39.2018075,9.5634451,15z/data=!4m5!3m4!1s0x0:0xa374f950792d396a!8m2!3d39.2018075!4d9.5634451",'_blank');
+  });
+
 }

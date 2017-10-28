@@ -9,7 +9,7 @@
 }
 
 body {
-  font-family: 'MonikaItalic','Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Monika', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size:20px;
   position: relative;
   width: 100%;
@@ -33,6 +33,16 @@ h6 {
   letter-spacing: 1px;
   text-transform: uppercase; }
 
+h5,
+h6{
+  font-weight: 100;
+  margin: 0 0 15px;
+}
+
+.intro-text, .italic{
+    font-family: 'MonikaItalic', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
 p {
   font-size: 30px;
   line-height: 1.5;
@@ -40,17 +50,17 @@ p {
   @media (min-width: 768px) {
     p {
       font-size: 30px;
-      line-height: 1.6;
+      line-height: 1.5;
       margin: 0 0 35px; } }
 
 a {
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
-  color: #00838F;; }
+  color: whitesmoke; }
   a:focus, a:hover {
     text-decoration: none;
-    color: #1d9b6c; }
+    color: rgba(79,195,247, 0.4); }
 
 #mainNav {
   font-family: 'Monika', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -105,7 +115,7 @@ a {
   display: table;
   width: 100%;
   height: auto;
-  padding: 200px 0;
+  padding: 100px 0;
   text-align: center;
   color: whitesmoke;
   background: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2) ), url("../img/intro-bg.jpg") no-repeat bottom center scroll;
@@ -120,7 +130,7 @@ a {
     .masthead .intro-body .brand-heading {
       font-size: 50px; }
     .masthead .intro-body .intro-text {
-      font-size: 30px; }
+      font-size: 38px; }
   @media (min-width: 768px) {
     .masthead {
       height: 100%;
@@ -128,7 +138,7 @@ a {
       .masthead .intro-body .brand-heading {
         font-size: 80px; }
       .masthead .intro-body .intro-text {
-        font-size: 30px; } }
+        font-size: 38px; } }
 
 .btn-circle {
   font-size: 26px;
@@ -207,7 +217,7 @@ ul.banner-social-buttons {
 footer {
   padding: 50px 0; }
   footer p {
-    font-size: 14px;
+    font-size: 18px;
     margin: 0; }
 
 ::-moz-selection {
@@ -235,4 +245,22 @@ body {
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
+}
+.iban{
+   height:100px;
+   text-align:left;
+}
+
+.iban table{
+   margin: auto;
+   margin-top: 50px;
+}
+@media (max-width: 767px){
+    .iban{
+        height:150px;
+    }
+}
+
+.highlight{
+
 }
