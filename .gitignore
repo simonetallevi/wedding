@@ -72,3 +72,5 @@ target/
 
 # End of https://www.gitignore.io/api/java-web,intellij
 /.idea/
+/wedding.iml
+/wedding.ipr
