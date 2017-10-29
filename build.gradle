@@ -23,6 +23,7 @@ apply plugin: 'com.google.cloud.tools.appengine'  // App Engine tasks
 
 dependencies {
     providedCompile group: 'javax.servlet', name: 'servlet-api', version:'2.5'
+    compile group: 'com.googlecode.objectify', name: 'objectify', version: '5.1.21'
     compile group: 'org.projectlombok', name: 'lombok', version: '1.16.18'
     compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
     compile group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: '1.9.58'
