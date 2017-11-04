@@ -126,6 +126,22 @@ a:hover {
     background-color: transparent;
 }
 
+.wedding-logo {
+    width: 500px;
+}
+
+@media (max-width: 992px) {
+    .wedding-logo {
+        width: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .wedding-logo {
+        width: 280px;
+    }
+}
+
 @media (min-width: 992px) {
     #mainNav {
         padding-top: 20px;
@@ -328,10 +344,6 @@ img::-moz-selection {
 
 body {
     -webkit-tap-highlight-color: rgba(255, 171, 0.2);
-}
-
-.wedding-logo {
-    width: 500px;
 }
 
 .iban {
