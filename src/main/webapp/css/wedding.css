@@ -18,11 +18,19 @@ body {
     background-color: #00838F;
 }
 
-html,
-#main-view,
-#home-scroll-context {
+html {
     width: 100%;
     height: 100%;
+}
+
+#main-view,
+#home-scroll-context {
+    position: relative;
+    width: 100%;
+}
+
+button{
+    cursor: pointer;
 }
 
 h1,

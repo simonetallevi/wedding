@@ -18,6 +18,14 @@
         }
     ])
 
+    .directive('setHeight', function($window) {
+        return {
+            link: function(scope, element, attrs) {
+                element.css('height', $window.innerHeight + 'px');
+            }
+        }
+    })
+
     .run(['$rootScope', '$log', '$timeout',
         function($rootScope, $log, $timeout) {
             $rootScope.initialized = true;

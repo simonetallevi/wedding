@@ -19,10 +19,7 @@
         var self = this;
 
         self.init = function() {
-            var container = angular.element(document.getElementById('page-top'));
-            container.on('scroll', function() {
-                console.log('Container scrolled to ', container.scrollLeft(), container.scrollTop());
-            });
+
         };
     }
 })();
