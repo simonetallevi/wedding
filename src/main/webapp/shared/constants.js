@@ -1,5 +1,5 @@
 (function () {
     'use strict';
-    angular.module('Wedding')
-        .constant('MODAL', {});
+
+    angular.module('wedding');
 })();

@@ -1,7 +1,7 @@
 (function() {
         'use strict';
 
-        angular.module('Wedding')
+        angular.module('wedding')
             .factory('MainService', MainService)
             .controller('MainCtrl', MainCtrl);
 

@@ -1,6 +1,7 @@
 (function () {
     'use strict';
-    angular.module('Wedding', [])
+
+    angular.module('wedding', ['ngAnimate', 'ngTouch', 'ui.bootstrap'])
 
         .run(['$rootScope', '$log', '$timeout',
             function ($rootScope, $log, $timeout) {

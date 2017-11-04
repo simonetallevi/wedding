@@ -1,6 +1,7 @@
 (function () {
     'use-strict';
-    angular.module('Wedding')
+
+    angular.module('wedding')
         .constant('SERVICE', {
             pageSize: 100,
             contentType: 'application/x-www-form-urlencoded; charset=utf-8',
