@@ -331,11 +331,7 @@ body {
 }
 
 .wedding-logo {
-    width: 300px;
-    height: 300px;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
+    width: 500px;
 }
 
 .iban {

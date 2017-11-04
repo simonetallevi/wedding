@@ -3,6 +3,8 @@
 
     angular.module('wedding')
         .constant('MAP', {
+            lat: 39.201810,
+            long: 9.563455,
             styles: [{
                     "featureType": "administrative",
                     "elementType": "geometry",

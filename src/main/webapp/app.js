@@ -37,7 +37,7 @@
             link: function(scope, element, attrs) {
                 var mapOptions = {
                     zoom: 11,
-                    center: new google.maps.LatLng(39.201810, 9.563455), // New York
+                    center: new google.maps.LatLng(MAP.lat, MAP.long), // New York
                     disableDefaultUI: true,
                     scrollwheel: false,
                     draggable: false,
@@ -49,7 +49,7 @@
                     map: scope.map,
                     draggable: false,
                     animation: google.maps.Animation.DROP,
-                    position: { lat: 39.201810, lng: 9.563455 }
+                    position: { lat: MAP.lat, lng: MAP.long }
                 });
 
                 scope.marker.addListener('click', function() {
