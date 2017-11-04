@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('wedding', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'ui.router'])
+    angular.module('wedding', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'ui.router', 'duScroll'])
 
     .config(['$stateProvider', '$urlRouterProvider',
         function($stateProvider, $urlRouterProvider) {

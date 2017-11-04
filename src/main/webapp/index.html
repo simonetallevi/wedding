@@ -39,7 +39,38 @@
 
 <body id="page-top" ng-controller="MainCtrl as Main" ng-init="Main.init()">
 
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container">
+                <a class="navbar-brand" du-smooth-scroll du-scrollspy offset="30" href="#page-top">Simo <span style="color:red">&#x2661;</span>
+                Stefi</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                    data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" du-smooth-scroll du-scrollspy offset="30" href="#lista">Lista Nozze</a>
+                    </li>
+                    <!--li><i style="font-size:5px; color:red" class="fa fa-circle" aria-hidden="true"></i></li-->
+                    <li class="nav-item">
+                        <a class="nav-link" du-smooth-scroll du-scrollspy offset="30" href="#location">Location</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div id="main-view" ui-view></div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <p>Simone & Stefania</p>
+        </div>
+    </footer>
 
 </body>
 

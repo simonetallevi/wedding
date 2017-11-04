@@ -1,3 +1,76 @@
-<div>
-    Home
+<div ng-init="Home.init()" id="home-scroll-context">
+    <!-- Intro Header -->
+    <header class="masthead">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <h1 class="brand-heading">Simone & Stefania</h1>
+                        <p class="intro-text">
+                            Sono lieti di invitarvi a celebrare il loro Matrimonio, che si terrà al Maklas nella bellissima spiaggia di Cala Sinzias
+                        </p>
+                        <a href="#lista" class="btn btn-circle js-scroll-trigger">
+                            <i class="fa fa-angle-double-down animated"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="lista" class="content-section text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2>Lista Nozze</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 mx-auto">
+                    <p class="italic">
+                        Se volete contribuire alla nostra
+                        <span class="highlight">luna di miele in Tanzania</span>, potete farlo facendo un bonifico bancario sul conto:
+                    </p>
+                    <div class="iban">
+                        <table>
+                            <tr>
+                                <td>INTESTATARI:</td>
+                                <td>Stefania Sanna / Simone Tallevi-Diotallevi</td>
+                            </tr>
+                            <tr>
+                                <td>IBAN:</td>
+                                <td>IT41T0558401795000000070237</td>
+                            </tr>
+                            <tr>
+                                <td>BIC/SWIFT:</td>
+                                <td>BPMIITMMXXX</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-lg-4 mx-auto">
+                    <img class="wedding-logo" src="img/wedding-logo.jpg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="location" class="content-section text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2>Location</h2>
+                    <p>
+                        <a target="_blank" href="https://www.google.it/maps/place/Maklas/@39.2018075,9.5634451,15z/data=!4m5!3m4!1s0x0:0xa374f950792d396a!8m2!3d39.2018075!4d9.5634451">
+                            <span style="font-weight: 700;">Maklas</span><br/><span>loc. S.  Pietro - Castiadas (spiaggia di Cala Sinzias)</span>
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- Map Section -->
+        <div id="map"></div>
+    </section>
 </div>

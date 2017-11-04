@@ -1,33 +1,33 @@
 (function() {
-        'use strict';
+    'use strict';
 
-        angular.module('wedding')
-            .factory('MainService', MainService)
-            .controller('MainCtrl', MainCtrl);
+    angular.module('wedding')
+        .factory('MainService', MainService)
+        .controller('MainCtrl', MainCtrl);
 
-        MainService.$inject = ['$rootScope', 'SERVICE', '$http', '$q', 'Utils'];
-        MainCtrl.$inject = ['$log', '$rootScope', 'MainService'];
+    MainService.$inject = ['$rootScope', 'SERVICE', '$http', '$q', 'Utils'];
+    MainCtrl.$inject = ['$log', '$rootScope', 'MainService'];
 
-        function MainService($rootScope, SERVICE, $http, $q, Utils) {
-            var self = this;
+    function MainService($rootScope, SERVICE, $http, $q, Utils) {
+        var self = this;
 
-            var _goTo = function(state, params) {
-                self.currentState = state;
-                $state.go(state, params);
-            };
+        var _goTo = function(state, params) {
+            self.currentState = state;
+            $state.go(state, params);
+        };
 
-            return {
-                goTo: function(state, params) {
-                    _goTo(state, params);
-                }
+        return {
+            goTo: function(state, params) {
+                _goTo(state, params);
             }
         }
+    }
 
-        function MainCtrl($log, $rootScope, MainService) {
-            var self = this;
+    function MainCtrl($log, $rootScope, MainService) {
+        var self = this;
 
-            self.init = function() {
+        self.init = function() {
 
-            };
-        }
+        };
+    }
 })();
