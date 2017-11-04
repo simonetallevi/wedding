@@ -17,10 +17,12 @@
     <!-- Custom styles for this template -->
     <link href="css/wedding.css" rel="stylesheet">
 
-
     <script src="vendor/angular/angular.js"></script>
     <script src="vendor/angular/angular-animate.min.js"></script>
     <script src="vendor/angular/angular-touch.min.js"></script>
+    <script src="vendor/angular/angular-ui-router.min.js"></script>
+    <script src="vendor/angular/angular-scroll.min.js"></script>
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBx73ZkwoWY0Qa7B0DEwRmLho6w3nX1_is&libraries=places&sensor=false"></script>
 
     <script src="vendor/bootstrap-ui/bootstrap-ui-2.5.0.min.js"></script>
@@ -31,12 +33,13 @@
     <script src="shared/services.js"></script>
 
     <script src="partials/main.js"></script>
+    <script src="partials/home/home.js"></script>
 
 </head>
 
 <body id="page-top" ng-controller="MainCtrl as Main" ng-init="Main.init()">
 
-CIAO
+    <div id="main-view" ui-view></div>
 
 </body>
 
