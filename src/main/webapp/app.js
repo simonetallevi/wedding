@@ -1,7 +1,8 @@
 (function() {
     'use strict';
 
-    angular.module('wedding', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'ui.router', 'duScroll'])
+    angular.module('wedding', ['ngAnimate', 'ngTouch', 'ui.bootstrap',
+        'ui.router', 'duScroll'])
 
     .config(['$stateProvider', '$urlRouterProvider',
         function($stateProvider, $urlRouterProvider) {
@@ -9,12 +10,16 @@
             // Routing
             $stateProvider
                 .state('home', {
-                    url: "/home",
+                    url: "/",
                     templateUrl: "partials/home/home.html",
                     controller: 'HomeCtrl as Home'
                 });
 
-            $urlRouterProvider.otherwise("/home");
+            $urlRouterProvider.otherwise("/");
+
+            hello.init({
+            	google: "439589792339-ves9t10arfb5te3916sn108k89ugfjkc.apps.googleusercontent.com"
+            },{redirect_uri:'', scope:'https://www.googleapis.com/auth/userinfo.email'});
         }
     ])
 
