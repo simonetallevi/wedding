@@ -20,10 +20,6 @@
 
         self.init = function() {
 
-            $timeout(function(){
-                var res = hello.getAuthResponse('google');
-                            console.log(res);
-            }, 1000)
         };
     }
 })();

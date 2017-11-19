@@ -40,6 +40,24 @@
             }
         }
 
+        self.login = function(provider){
+            if(provider == "facebook"){
+                hello('facebook').login().then(function() {
+                    $log.info('You are signed in to Facebook');
+                }, function(e) {
+                    $log.info('Signin error: ' + e.error.message);
+                });
+            }else if(provider == "google"){
+                hello('google').login().then(function() {
+                    $log.info('You are signed in to Google');
+                }, function(e) {
+                    $log.info('Signin error: ' + e.error.message);
+                });
+            }else{
+                $log.error("method not supported");
+            }
+        };
+
         self.init = function() {
 
             $document.on('scroll', function() {
