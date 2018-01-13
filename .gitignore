@@ -74,3 +74,5 @@ target/
 /.idea/
 /wedding.iml
 /wedding.ipr
+/src/test/resources/key/
+/src/test/resources/key/*
