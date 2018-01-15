@@ -4,17 +4,13 @@ import com.google.appengine.api.utils.SystemProperty;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * Created by Clement on 22/06/2015.
- */
-
 @Slf4j
 @AllArgsConstructor
-public class AppConfig {
+public class EnvConfig {
 
     public final String applicationId;
 
-    public static AppConfig get() {
-        return new AppConfig(SystemProperty.applicationId.get());
+    public static EnvConfig get() {
+        return new EnvConfig(SystemProperty.applicationId.get());
     }
 }

@@ -1,7 +1,8 @@
 package it.simostefi.wedding.servlet;
 
 import com.google.common.collect.Maps;
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 import lombok.extern.slf4j.Slf4j;
 
@@ -10,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
 import java.util.Map;
 
 @Slf4j
@@ -34,7 +34,7 @@ public abstract class AbstractServlet extends HttpServlet {
         post(getPayload(req), req, resp);
     }
 
-    protected abstract void get(Map<String, String> parameters, HttpServletRequest req, HttpServletResponse resp) throws Throwable;
+    protected abstract void get(Map<String, String> parameters, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException;
     protected abstract void post(JsonObject input, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException;
 
     protected static Map<String, String> getParams(HttpServletRequest req){
