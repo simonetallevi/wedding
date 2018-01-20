@@ -76,3 +76,4 @@ target/
 /wedding.ipr
 /src/test/resources/key/
 /src/test/resources/key/*
+/src/main/resources/inviti/inviti.csv
