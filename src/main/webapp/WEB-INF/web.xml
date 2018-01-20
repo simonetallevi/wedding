@@ -12,7 +12,7 @@
 
     <servlet>
         <servlet-name>ConfigServlet</servlet-name>
-        <servlet-class>com.policlaudio.servlet.config.ConfigServlet</servlet-class>
+        <servlet-class>it.simostefi.wedding.servlet.config.ConfigServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ConfigServlet</servlet-name>
@@ -21,12 +21,22 @@
 
     <servlet>
         <servlet-name>RegistrationFilter</servlet-name>
-        <servlet-class>com.policlaudio.servlet.filter.EntitiesFilter</servlet-class>
+        <servlet-class>it.simostefi.wedding.servlet.filter.EntitiesFilter</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegistrationFilter</servlet-name>
         <url-pattern>/registration</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ViewRegistrationServlet</servlet-name>
+        <servlet-class>it.simostefi.wedding.servlet.registration.ViewRegistrationServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewRegistrationServlet</servlet-name>
+        <url-pattern>/view-registration</url-pattern>
     </servlet-mapping>
 
     <security-constraint>
@@ -40,6 +50,10 @@
         <web-resource-collection>
             <web-resource-name>config</web-resource-name>
             <url-pattern>/config</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>registration</web-resource-name>
+            <url-pattern>/registration</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>

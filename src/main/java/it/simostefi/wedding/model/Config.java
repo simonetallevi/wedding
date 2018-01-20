@@ -61,7 +61,8 @@ public class Config {
     }
 
     public enum K {
-        bucket;
+        bucket,
+        input;
 
         public String get() {
             return G().getValues().get(this.name());
