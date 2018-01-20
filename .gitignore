@@ -77,3 +77,4 @@ target/
 /src/test/resources/key/
 /src/test/resources/key/*
 /src/main/resources/inviti/inviti.csv
+/src/main/resources/key/secret.json

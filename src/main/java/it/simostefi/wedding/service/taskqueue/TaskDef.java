@@ -50,7 +50,7 @@ public class TaskDef {
     }
 
     public boolean hasPayload(){
-        return Strings.isNullOrEmpty(payload);
+        return !Strings.isNullOrEmpty(payload);
     }
 
 }

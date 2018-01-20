@@ -15,26 +15,27 @@ public class TaskQueueService {
         queue.purge();
     }
 
-    public static void runTask(String queueName, TaskDef task){
+    public static void runTask(String queueName, TaskDef task) {
         runTask(queueName, task, 0);
     }
 
-    private static TaskOptions getTask(TaskDef task){
-        TaskOptions taskOptions= TaskOptions.Builder.withUrl(task.getUri().toString())
+    private static TaskOptions getTask(TaskDef task) {
+        TaskOptions taskOptions = TaskOptions.Builder.withUrl(task.getUri().toString())
                 .method(task.getMethod())
                 .taskName(task.getName());
-        if(task.hasParams()){
+        if (task.hasParams()) {
             for (String k : task.getParams().keySet()) {
-                if(task.getParams().get(k) != null)
+                if (task.getParams().get(k) != null) {
                     taskOptions.param(k, task.getParams().get(k));
+                }
             }
-        }else if(task.hasPayload()){
+        } else if (task.hasPayload()) {
             taskOptions.payload(task.getPayload());
         }
         return taskOptions;
     }
 
-    public static void runTask(String queueName, TaskDef task, long delay){
+    public static void runTask(String queueName, TaskDef task, long delay) {
         log.info("Executing task name {} in queue {} with delay {}", task.getName(), queueName, delay);
         TaskOptions taskOptions = getTask(task);
         Queue queueDelete = QueueFactory.getQueue(queueName);

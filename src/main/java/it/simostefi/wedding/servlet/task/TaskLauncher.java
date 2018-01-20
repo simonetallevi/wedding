@@ -1,6 +1,10 @@
 package it.simostefi.wedding.servlet.task;
 
+import com.google.appengine.api.taskqueue.TaskOptions;
+import com.google.common.collect.ImmutableMap;
 import com.google.gson.JsonObject;
+import it.simostefi.wedding.service.taskqueue.TaskDef;
+import it.simostefi.wedding.service.taskqueue.TaskQueueService;
 import it.simostefi.wedding.servlet.AbstractServlet;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,14 +19,14 @@ import java.util.Map;
 @Slf4j
 public class TaskLauncher extends AbstractServlet {
 
-    public enum TasksName {
-        SYNC_DATA("TBD", URI.create("TBD"));
+    public enum Tasks {
+        SEND("send-queue", URI.create("/task/send"));
 
         private String queue;
 
         private URI servlet;
 
-        TasksName(String queue, URI servlet) {
+        Tasks(String queue, URI servlet) {
             this.queue = queue;
             this.servlet = servlet;
         }
@@ -38,19 +42,20 @@ public class TaskLauncher extends AbstractServlet {
 
     @Override
     protected void get(Map<String, String> parameters, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        TasksName action = TasksName.valueOf(parameters.get("action"));
+        Tasks action = Tasks.valueOf(parameters.get("action"));
 
         switch (action) {
-            case SYNC_DATA: {
-//                TaskDef task = new TaskDef(Tasks.SPREADSHEET.name(), Tasks.SPREADSHEET.getServlet());
-//                TaskQueueService.runTask(Tasks.SPREADSHEET.getQueue(),
-//                        TaskQueueService.getTaskGet(task, ImmutableMap.of(Params.action.name(),"INIT_CONFIG", Params.firstRow.name(),firstRowString)));
+            case SEND: {
+                TaskDef task = new TaskDef(
+                        TaskOptions.Method.GET, action.getServlet(),
+                        ImmutableMap.of(), action.name());
+                TaskQueueService.runTask(action.getQueue(),task);
                 break;
             }
             default:
                 throw new IllegalStateException("Action not supported");
         }
-    }
+        }
 
 
     @Override

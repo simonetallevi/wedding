@@ -38,6 +38,24 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>TaskLauncher</servlet-name>
+        <servlet-class>it.simostefi.wedding.servlet.task.TaskLauncher</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TaskLauncher</servlet-name>
+        <url-pattern>/task/launcher</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SendEmailsTaskServlet</servlet-name>
+        <servlet-class>it.simostefi.wedding.servlet.task.SendEmailsTaskServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SendEmailsTaskServlet</servlet-name>
+        <url-pattern>/task/send</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>RegistrationFilter</servlet-name>
         <servlet-class>it.simostefi.wedding.servlet.filter.EntitiesFilter</servlet-class>
         <load-on-startup>1</load-on-startup>
@@ -62,6 +80,20 @@
             <web-resource-name>all</web-resource-name>
             <url-pattern>/*</url-pattern>
         </web-resource-collection>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>task</web-resource-name>
+            <url-pattern>/task</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>sub-task</web-resource-name>
+            <url-pattern>/task/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
     </security-constraint>
 
     <security-constraint>
