@@ -2,6 +2,7 @@ package it.simostefi.wedding.servlet.task;
 
 import au.com.bytecode.opencsv.CSVReader;
 import com.google.gson.JsonObject;
+import it.simostefi.wedding.manager.SenderManager;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.ServletException;
@@ -17,12 +18,8 @@ public class SendEmailsTaskServlet extends AbstractTaskServlet{
 
     @Override
     protected void get(Map<String, String> parameters, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        CSVReader file = new CSVReader(new InputStreamReader(classLoader.getResourceAsStream("inviti/inviti.csv")));
-        List<String[]> allLines =  file.readAll();
-        for (String[] tokens : allLines){
-            log.info(tokens[0]);
-        }
+        SenderManager senderManager = new SenderManager();
+        senderManager.sendEmails();
     }
 
     @Override

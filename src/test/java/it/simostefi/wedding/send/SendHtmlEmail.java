@@ -143,7 +143,7 @@ public class SendHtmlEmail {
         // Print the labels in the user's account.
         String user = "me";
         service.users().messages().send(user, createMessageWithEmail(createEmail(
-                "simone.tallevi@gmail.com",
-                "test", body))).execute();
+                "estefania.sanna@gmail.com",
+                "test3", body))).execute();
     }
 }
