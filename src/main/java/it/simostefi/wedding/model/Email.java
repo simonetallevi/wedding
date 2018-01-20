@@ -21,4 +21,13 @@ public class Email {
 
     @Index
     private Boolean open = false;
+
+    @Index
+    private Answer answer = Answer.NONE;
+
+    public enum Answer{
+        NONE,
+        OK,
+        NO
+    }
 }

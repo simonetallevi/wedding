@@ -35,12 +35,13 @@ dependencies {
     compile group: 'com.google.appengine', name: 'appengine-tools-sdk', version: '1.9.60'
     compile group: 'com.google.appengine', name: 'appengine-api-labs', version: '1.9.60'
     compile group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: '1.9.60'
+    compile group: 'com.google.api-client', name:'google-api-client', version:'1.23.0'
+    compile group: 'com.google.oauth-client', name:'google-oauth-client-jetty', version:'1.23.0'
+    compile group: 'com.google.apis', name:'google-api-services-gmail', version:'v1-rev77-1.23.0'
+    compile group: 'com.google.apis', name: 'google-api-services-oauth2', version: 'v2-rev133-1.23.0'
 
     testCompile group: 'com.google.appengine', name: 'appengine-testing', version: '1.9.60'
     testCompile group: 'com.google.appengine', name: 'appengine-api-stubs', version: '1.9.60'
-    testCompile group: 'com.google.api-client', name:'google-api-client', version:'1.23.0'
-    testCompile group: 'com.google.oauth-client', name:'google-oauth-client-jetty', version:'1.23.0'
-    testCompile group: 'com.google.apis', name:'google-api-services-gmail', version:'v1-rev77-1.23.0'
 }
 
 appengine {  // App Engine tasks configuration

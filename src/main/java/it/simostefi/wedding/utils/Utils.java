@@ -1,5 +1,10 @@
 package it.simostefi.wedding.utils;
 
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.common.collect.ImmutableList;
 import org.reflections.Reflections;
 
@@ -12,6 +17,18 @@ import java.util.Set;
  * @author tallesi001 on 14/01/18.
  */
 public class Utils {
+
+    public static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+
+    public static HttpTransport HTTP_TRANSPORT;
+
+    static {
+        try {
+            HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+    }
 
     private static final Collection<Class<? extends Annotation>> DATASTORE_ENTITIES_ANNOTATIONS =
             ImmutableList.of(com.googlecode.objectify.annotation.Entity.class,

@@ -1,5 +1,6 @@
 package it.simostefi.wedding.model;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonObject;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 @Entity
 @Data
@@ -62,10 +64,17 @@ public class Config {
 
     public enum K {
         bucket,
+        clientId,
+        clientSecret,
+        scopes,
         input;
 
         public String get() {
             return G().getValues().get(this.name());
+        }
+
+        public Set<String> getSet() {
+            return ImmutableSet.copyOf(G().getValues().get(this.name()).split(","));
         }
     }
 }

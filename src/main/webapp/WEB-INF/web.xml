@@ -20,6 +20,24 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>RegisterAuthServlet</servlet-name>
+        <servlet-class>it.simostefi.wedding.servlet.auth.RegisterAuthServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterAuthServlet</servlet-name>
+        <url-pattern>/auth/register</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>OauthCallback</servlet-name>
+        <servlet-class>it.simostefi.wedding.servlet.auth.OauthCallback</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OauthCallback</servlet-name>
+        <url-pattern>/auth/oauthcallback</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>RegistrationFilter</servlet-name>
         <servlet-class>it.simostefi.wedding.servlet.filter.EntitiesFilter</servlet-class>
         <load-on-startup>1</load-on-startup>
@@ -50,6 +68,10 @@
         <web-resource-collection>
             <web-resource-name>config</web-resource-name>
             <url-pattern>/config</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>auth</web-resource-name>
+            <url-pattern>/auth</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>registration</web-resource-name>
