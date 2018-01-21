@@ -17,8 +17,18 @@ public class SendEmailsTaskServlet extends AbstractTaskServlet {
     @Override
     protected void get(Map<String, String> parameters, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         SenderManager senderManager = new SenderManager();
+        String action = parameters.get("action");
         try {
-            senderManager.sendEmails();
+            switch (action){
+                case "STORE":
+                    senderManager.storeEmails();
+                    break;
+                case "SEND":
+                    senderManager.sendEmails();
+                    break;
+                default:
+                    throw new IllegalStateException("Method not supported");
+            }
         } catch (MessagingException e) {
             throw new ServletException(e);
         }

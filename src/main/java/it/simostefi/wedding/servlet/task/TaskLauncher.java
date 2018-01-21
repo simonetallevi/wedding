@@ -48,7 +48,7 @@ public class TaskLauncher extends AbstractServlet {
             case SEND: {
                 TaskDef task = new TaskDef(
                         TaskOptions.Method.GET, action.getServlet(),
-                        ImmutableMap.of(), action.name());
+                        ImmutableMap.of("action", "STORE"), action.name());
                 TaskQueueService.runTask(action.getQueue(),task);
                 break;
             }

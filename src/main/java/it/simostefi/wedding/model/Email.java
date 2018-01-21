@@ -16,7 +16,7 @@ public class Email {
     @Id
     private String id;
 
-    private String name;
+    private String salutation;
 
     private List<String> emails = new ArrayList<>();
 
@@ -42,7 +42,7 @@ public class Email {
         for (String e : emails) {
             email.getEmails().add(e);
         }
-        email.setName(tokens[0]);
+        email.setSalutation(tokens[0]);
         return email;
     }
 }

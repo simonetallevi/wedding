@@ -1,29 +1,33 @@
 package it.simostefi.wedding.manager;
 
 import au.com.bytecode.opencsv.CSVReader;
+import com.google.appengine.api.taskqueue.TaskOptions;
+import com.google.common.collect.ImmutableMap;
 import it.simostefi.wedding.model.Email;
 import it.simostefi.wedding.service.datastore.DatastoreService;
 import it.simostefi.wedding.service.gmail.GmailService;
+import it.simostefi.wedding.service.taskqueue.TaskDef;
+import it.simostefi.wedding.service.taskqueue.TaskQueueService;
+import it.simostefi.wedding.servlet.task.TaskLauncher;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
 public class SenderManager extends Manager {
 
-    private GmailService gmailService;
-
     public SenderManager() {
-        gmailService = new GmailService(getTechUserCredential());
     }
 
-    public void sendEmails() throws IOException, MessagingException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        CSVReader reader = new CSVReader(new InputStreamReader(classLoader.getResourceAsStream("inviti/inviti.csv")));
+    public void storeEmails() throws IOException, MessagingException {
+        CSVReader reader = new CSVReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("inviti/inviti.csv")));
         reader.readNext();
 
         String[] tokens = null;
@@ -35,14 +39,36 @@ public class SenderManager extends Manager {
             emails.add(Email.getEmail(tokens));
         }
         datastoreService.ofy().save().entities(emails);
+
+        TaskDef task = new TaskDef(
+                TaskOptions.Method.GET, TaskLauncher.Tasks.SEND.getServlet(),
+                ImmutableMap.of("action", "SEND"), TaskLauncher.Tasks.SEND.name());
+        TaskQueueService.runTask(TaskLauncher.Tasks.SEND.getQueue(), task);
+
         log.info("Email stored");
-        sendEmails(emails);
     }
 
-    private void sendEmails(List<Email> emails) throws IOException, MessagingException {
-        for (Email email : emails) {
-            gmailService.sendEmail(email, "test", "body");
+    public void sendEmails() throws IOException, MessagingException {
+        GmailService gmailService = new GmailService(getTechUserCredential());
+        List<Email> emails = datastoreService.ofy().load().type(Email.class).list();
+        if (emails.isEmpty()) {
+            return;
         }
+        InputStream reader = getClass().getClassLoader().getResourceAsStream("email_template/email.html");
+        StringWriter writer = new StringWriter();
+        IOUtils.copy(reader, writer, "UTF-8");
+        String body = writer.toString();
+
+        for (Email email : emails) {
+            if (email.getSent()) {
+                continue;
+            }
+            String customisedBody = body.replace("{$SALUTATION}", email.getSalutation());
+            Email sentEmail = gmailService.sendEmail(email, "Nozze Stefania & Simone", customisedBody);
+            datastoreService.ofy().save().entity(sentEmail);
+        }
+
+        log.info("Email sent");
     }
 
     public void registerView(String id) {
