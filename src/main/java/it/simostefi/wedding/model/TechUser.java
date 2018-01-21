@@ -4,9 +4,11 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 @Entity
-public class Sender {
+public class TechUser {
 
     @Id
     private String email;
@@ -16,4 +18,6 @@ public class Sender {
     private String accessToken;
 
     private String refreshToken;
+
+    private Date expirationTime;
 }

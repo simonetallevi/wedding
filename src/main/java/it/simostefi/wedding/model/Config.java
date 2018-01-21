@@ -67,6 +67,7 @@ public class Config {
         clientId,
         clientSecret,
         scopes,
+        techUser,
         input;
 
         public String get() {

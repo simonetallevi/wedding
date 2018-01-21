@@ -4,10 +4,11 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.services.oauth2.model.Userinfoplus;
 import it.simostefi.wedding.config.EnvConstants;
 import it.simostefi.wedding.model.Config;
-import it.simostefi.wedding.model.Sender;
+import it.simostefi.wedding.model.TechUser;
 import it.simostefi.wedding.service.credential.CredentialService;
 import it.simostefi.wedding.service.datastore.DatastoreService;
 import lombok.extern.slf4j.Slf4j;
+import org.joda.time.DateTime;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -34,19 +35,20 @@ public class OauthCallback extends HttpServlet {
 
         try{
             if (code != null){
-                GoogleTokenResponse tokenResponse = oauthService.getTokenResponse(code, EnvConstants.getBaseURL() + "auth/oauthcallback");
+                GoogleTokenResponse tokenResponse = oauthService.getTokenResponse(code, EnvConstants.getBaseURL() + "oauthcallback");
                 String accessToken = tokenResponse.getAccessToken();
                 String refreshToken = tokenResponse.getRefreshToken();
-                Userinfoplus userinfoplus = oauthService.getCurrentUser(oauthService.getOauthCredential(accessToken));
+                Userinfoplus userinfoplus = oauthService.getCurrentUser(oauthService.getCredential(accessToken));
 
-                Sender sender = new Sender();
-                sender.setNome(userinfoplus.getName());
-                sender.setEmail(userinfoplus.getEmail());
-                sender.setAccessToken(accessToken);
-                sender.setRefreshToken(refreshToken);
+                TechUser techUser = new TechUser();
+                techUser.setEmail(userinfoplus.getEmail());
+                techUser.setNome(userinfoplus.getName());
+                techUser.setAccessToken(accessToken);
+                techUser.setRefreshToken(refreshToken);
+                techUser.setExpirationTime(DateTime.now().plusSeconds(tokenResponse.getExpiresInSeconds().intValue()).toDate());
 
                 DatastoreService datastoreService = new DatastoreService();
-                datastoreService.ofy().save().entity(sender);
+                datastoreService.ofy().save().entity(techUser);
 
                 resp.setStatus(HttpServletResponse.SC_OK);
                 resp.sendRedirect(EnvConstants.getBaseURL());

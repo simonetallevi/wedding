@@ -34,7 +34,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>OauthCallback</servlet-name>
-        <url-pattern>/auth/oauthcallback</url-pattern>
+        <url-pattern>/oauthcallback</url-pattern>
     </servlet-mapping>
 
     <servlet>
