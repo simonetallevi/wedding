@@ -17,7 +17,7 @@ public class SenderManager extends Manager {
 
     private GmailService gmailService;
 
-    public SenderManager(){
+    public SenderManager() {
         gmailService = new GmailService(getTechUserCredential());
     }
 
@@ -28,7 +28,10 @@ public class SenderManager extends Manager {
 
         String[] tokens = null;
         List<Email> emails = new ArrayList<>();
-        while ((tokens = reader.readNext()) != null){
+        while ((tokens = reader.readNext()) != null) {
+            if (tokens[0].isEmpty() || tokens[1].isEmpty()) {
+                continue;
+            }
             emails.add(Email.getEmail(tokens));
         }
         datastoreService.ofy().save().entities(emails);
@@ -37,14 +40,14 @@ public class SenderManager extends Manager {
     }
 
     private void sendEmails(List<Email> emails) throws IOException, MessagingException {
-        for(Email email : emails){
+        for (Email email : emails) {
             gmailService.sendEmail(email, "test", "body");
         }
     }
 
-    public void registerView(String id){
+    public void registerView(String id) {
         Email email = datastoreService.ofy().load().type(Email.class).id(id).now();
-        if(email == null) {
+        if (email == null) {
             log.error("Email not found for id {}", id);
             return;
         }
