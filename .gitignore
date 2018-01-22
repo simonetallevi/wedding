@@ -79,3 +79,4 @@ target/
 /src/main/resources/inviti/inviti.csv
 /src/main/resources/key/secret.json
 /src/main/resources/db/local_db.bin
+/src/main/resources/attachments/
