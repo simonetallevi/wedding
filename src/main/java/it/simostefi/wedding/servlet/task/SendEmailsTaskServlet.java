@@ -18,10 +18,11 @@ public class SendEmailsTaskServlet extends AbstractTaskServlet {
     protected void get(Map<String, String> parameters, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         SenderManager senderManager = new SenderManager();
         String action = parameters.get("action");
+        String requestId = parameters.get("id");
         try {
             switch (action){
                 case "STORE":
-                    senderManager.storeEmails();
+                    senderManager.storeEmails(requestId);
                     break;
                 case "SEND":
                     senderManager.sendEmails();

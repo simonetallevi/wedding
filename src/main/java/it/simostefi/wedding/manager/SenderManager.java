@@ -3,9 +3,10 @@ package it.simostefi.wedding.manager;
 import au.com.bytecode.opencsv.CSVReader;
 import com.google.appengine.api.taskqueue.TaskOptions;
 import com.google.common.collect.ImmutableMap;
+import it.simostefi.wedding.config.EnvConstants;
 import it.simostefi.wedding.model.Email;
-import it.simostefi.wedding.service.datastore.DatastoreService;
 import it.simostefi.wedding.service.gmail.GmailService;
+import it.simostefi.wedding.service.mapper.MappingService;
 import it.simostefi.wedding.service.taskqueue.TaskDef;
 import it.simostefi.wedding.service.taskqueue.TaskQueueService;
 import it.simostefi.wedding.servlet.task.TaskLauncher;
@@ -26,8 +27,8 @@ public class SenderManager extends Manager {
     public SenderManager() {
     }
 
-    public void storeEmails() throws IOException, MessagingException {
-        CSVReader reader = new CSVReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("inviti/inviti.csv")));
+    public void storeEmails(String requestId) throws IOException, MessagingException {
+        CSVReader reader = new CSVReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("inviti/inviti.csv")), ';');
         reader.readNext();
 
         String[] tokens = null;
@@ -42,7 +43,9 @@ public class SenderManager extends Manager {
 
         TaskDef task = new TaskDef(
                 TaskOptions.Method.GET, TaskLauncher.Tasks.SEND.getServlet(),
-                ImmutableMap.of("action", "SEND"), TaskLauncher.Tasks.SEND.name());
+                ImmutableMap.of(
+                        "action", "SEND",
+                        "ID", requestId), TaskLauncher.Tasks.SEND.name()+requestId);
         TaskQueueService.runTask(TaskLauncher.Tasks.SEND.getQueue(), task);
 
         log.info("Email stored");
@@ -63,7 +66,10 @@ public class SenderManager extends Manager {
             if (email.getSent()) {
                 continue;
             }
-            String customisedBody = body.replace("{$SALUTATION}", email.getSalutation());
+            String customisedBody = MappingService.getResolvedString(body, ImmutableMap.of(
+                    "SALUTATION", email.getSalutation(),
+                    "BASEURL", EnvConstants.getBaseURL(),
+                    "ID", email.getId()));
             Email sentEmail = gmailService.sendEmail(email, "Nozze Stefania & Simone", customisedBody);
             datastoreService.ofy().save().entity(sentEmail);
         }

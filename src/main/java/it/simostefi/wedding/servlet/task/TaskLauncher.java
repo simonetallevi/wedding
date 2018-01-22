@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Map;
+import java.util.UUID;
 
 
 @Slf4j
@@ -46,9 +47,12 @@ public class TaskLauncher extends AbstractServlet {
 
         switch (action) {
             case SEND: {
+                String uuid = UUID.randomUUID().toString();
                 TaskDef task = new TaskDef(
                         TaskOptions.Method.GET, action.getServlet(),
-                        ImmutableMap.of("action", "STORE"), action.name());
+                        ImmutableMap.of(
+                                "action", "STORE",
+                                "id", uuid), "STORE"+uuid);
                 TaskQueueService.runTask(action.getQueue(),task);
                 break;
             }
