@@ -1,6 +1,9 @@
 @font-face {
     font-family: "Monika";
-    src: url(Monika.ttf) format("truetype");
+    src: url('Monika.eot');
+    src: url('Monika.eot?#iefix') format('eot'),
+         url('Monika.woff') format('woff'),
+         url('Monika.ttf') format('truetype');
 }
 
 @font-face {

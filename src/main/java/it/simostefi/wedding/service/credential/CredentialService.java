@@ -74,19 +74,30 @@ public class CredentialService extends RetryableService {
                 .setClientSecrets(clientId, clientKey).build().setAccessToken(accessToken);
     }
 
-    private static Map.Entry<String, Date> refreshAccessToken(String refreshToken, String clientId, String clientKey) throws Throwable {
-        TokenResponse response = execute((Callable<TokenResponse>) ()
-                -> new GoogleRefreshTokenRequest(Utils.HTTP_TRANSPORT,
-                Utils.JSON_FACTORY,
-                refreshToken, clientId,
-                clientKey).execute());
+    private static Map.Entry<String, Date> refreshAccessToken(final String refreshToken, final String clientId, final  String clientKey) throws Throwable {
+        TokenResponse response = execute(new Callable<TokenResponse>() {
+
+            @Override
+            public TokenResponse call() throws Exception {
+                return new GoogleRefreshTokenRequest(Utils.HTTP_TRANSPORT,
+                        Utils.JSON_FACTORY,
+                        refreshToken, clientId,
+                        clientKey).execute();
+            }
+        });
         String accTok = response.getAccessToken();
         return new AbstractMap.SimpleEntry(accTok, new Date());
     }
 
     public Userinfoplus getCurrentUser(Credential credential) throws Throwable {
-        Oauth2 oauth2 = new Oauth2.Builder(Utils.HTTP_TRANSPORT, Utils.JSON_FACTORY, credential)
+        final Oauth2 oauth2 = new Oauth2.Builder(Utils.HTTP_TRANSPORT, Utils.JSON_FACTORY, credential)
                 .setApplicationName(EnvConstants.getBaseURL()).build();
-        return execute(() -> oauth2.userinfo().v2().me().get().execute());
+        return execute(new Callable<Userinfoplus>() {
+
+            @Override
+            public Userinfoplus call() throws Exception {
+                return oauth2.userinfo().v2().me().get().execute();
+            }
+        });
     }
 }

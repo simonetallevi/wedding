@@ -80,3 +80,4 @@ target/
 /src/main/resources/key/secret.json
 /src/main/resources/db/local_db.bin
 /src/main/resources/attachments/
+/src/main/resources/key/config.json

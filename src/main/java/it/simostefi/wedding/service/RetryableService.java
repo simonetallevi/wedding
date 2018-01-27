@@ -37,11 +37,14 @@ public class RetryableService {
                         multiplier, timeout, timeUnit))
                 .withStopStrategy(StopStrategies.stopAfterAttempt(attempts))
                 .retryIfException(new Predicate<Throwable>() {
-                    private int a = 0;
+
+                    @Override
+                    public boolean test(Throwable input) {
+                        return false;
+                    }
 
                     @Override
                     public boolean apply(Throwable t) {
-                        a++;
                         if (t instanceof IOException) {
                             IOException e = (IOException) t;
                             log.warn("Retrying: " + e.getMessage(), e);

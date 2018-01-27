@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +59,8 @@ public class SenderManager extends Manager {
             return;
         }
         InputStream reader = getClass().getClassLoader().getResourceAsStream("email_template/email.html");
+        URL alberghi = getClass().getClassLoader().getResource("attachments/Stefania&Simone-alberghi.pdf");
+        URL partecipazioni  = getClass().getClassLoader().getResource("attachments/Stefania&Simone-partecipazioni.pdf");
         StringWriter writer = new StringWriter();
         IOUtils.copy(reader, writer, "UTF-8");
         String body = writer.toString();
@@ -70,7 +73,10 @@ public class SenderManager extends Manager {
                     "SALUTATION", email.getSalutation(),
                     "BASEURL", EnvConstants.getBaseURL(),
                     "ID", email.getId()));
-            Email sentEmail = gmailService.sendEmail(email, "Nozze Stefania & Simone", customisedBody);
+            Email sentEmail = gmailService.sendEmail(email, "Nozze Stefania & Simone", customisedBody,
+                    ImmutableMap.of(
+                            partecipazioni.getPath(), "Stefania & Simone - partecipazioni.pdf",
+                            alberghi.getPath(), "Stefania & Simone - alberghi.pdf"));
             datastoreService.ofy().save().entity(sentEmail);
         }
 
