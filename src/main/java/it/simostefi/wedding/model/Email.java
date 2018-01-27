@@ -27,6 +27,9 @@ public class Email {
     private Boolean open = false;
 
     @Index
+    private Boolean clicked = false;
+
+    @Index
     private Answer answer = Answer.NONE;
 
     public enum Answer {

@@ -66,13 +66,21 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>ViewRegistrationServlet</servlet-name>
-        <servlet-class>it.simostefi.wedding.servlet.registration.ViewRegistrationServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
+        <servlet-name>EmailOpenRegistrationServlet</servlet-name>
+        <servlet-class>it.simostefi.wedding.servlet.registration.EmailOpenRegistrationServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>ViewRegistrationServlet</servlet-name>
+        <servlet-name>EmailOpenRegistrationServlet</servlet-name>
         <url-pattern>/view-registration</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>WebSiteVisitedRegistrationServlet</servlet-name>
+        <servlet-class>it.simostefi.wedding.servlet.registration.WebSiteVisitedRegistrationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>WebSiteVisitedRegistrationServlet</servlet-name>
+        <url-pattern>/web-registration</url-pattern>
     </servlet-mapping>
 
     <security-constraint>

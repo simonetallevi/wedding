@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.Map;
 
 @Slf4j
-public class ViewRegistrationServlet extends AbstractServlet{
+public class EmailOpenRegistrationServlet extends AbstractServlet{
 
     @Override
     protected void get(Map<String, String> parameters, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

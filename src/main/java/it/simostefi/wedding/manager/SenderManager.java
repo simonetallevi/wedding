@@ -78,12 +78,27 @@ public class SenderManager extends Manager {
     }
 
     public void registerView(String id) {
+        Email email = getEmail(id);
+        if(email != null) {
+            email.setOpen(true);
+            datastoreService.ofy().save().entity(email);
+        }
+    }
+
+    public void registerWeb(String id) {
+        Email email = getEmail(id);
+        if(email != null) {
+            email.setClicked(true);
+            datastoreService.ofy().save().entity(email);
+        }
+    }
+
+    private Email getEmail(String id){
         Email email = datastoreService.ofy().load().type(Email.class).id(id).now();
         if (email == null) {
             log.error("Email not found for id {}", id);
-            return;
+            return null;
         }
-        email.setOpen(true);
-        datastoreService.ofy().save().entity(email);
+        return email;
     }
 }

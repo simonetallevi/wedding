@@ -50,10 +50,7 @@ appengine {  // App Engine tasks configuration
     run {      // local (dev_appserver) configuration (standard environments only)
         port = 8080
         automaticRestart = true
-        datastorePath = "/Users/tallesi001/IdeaProjects/wedding/src/main/resources/db/local_db.bin"
-        jvmFlags = ['-Xdebug',
-                    '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005',
-                    "-Dappengine.fullscan.seconds=5"]
+        jvmFlags = ['-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005']
         //jvmFlags = ["-Dappengine.fullscan.seconds=5", "-Ddatastore.backing_store=\"/Users/tallesi001/IdeaProjects/wedding/src/main/resources/db\""]
     }
 
