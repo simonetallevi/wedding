@@ -39,11 +39,6 @@ public class RetryableService {
                 .retryIfException(new Predicate<Throwable>() {
 
                     @Override
-                    public boolean test(Throwable input) {
-                        return false;
-                    }
-
-                    @Override
                     public boolean apply(Throwable t) {
                         if (t instanceof IOException) {
                             IOException e = (IOException) t;

@@ -45,7 +45,7 @@ public abstract class Manager {
             }
             return CredentialService.getCredential(techUser, Config.K.clientId.get(), Config.K.clientSecret.get());
         } catch (Throwable throwable) {
-            throw new RuntimeException("Error loading credentials");
+            throw new RuntimeException("Error loading credentials", throwable);
         }
     }
 }
