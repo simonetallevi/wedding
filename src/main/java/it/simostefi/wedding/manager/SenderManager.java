@@ -40,13 +40,11 @@ public class SenderManager extends Manager {
         reader.readNext();
 
         List<Email> alreadyStored = datastoreService.ofy().load().type(Email.class).list();
-        if (alreadyStored.isEmpty()) {
-            return;
-        }
-
         Set<String> emailSent = new HashSet<>();
-        for(Email email : alreadyStored){
-            emailSent.add(joiner.join(email.getEmails()));
+        if(!alreadyStored.isEmpty()) {
+            for (Email email : alreadyStored) {
+                emailSent.add(joiner.join(email.getEmails()));
+            }
         }
 
         String[] tokens;
