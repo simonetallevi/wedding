@@ -37,7 +37,9 @@ public class Config {
         if (config != null && force == false) {
             return config;
         }
-        return getEmptyConfig();
+        DatastoreService datastoreService = new DatastoreService();
+        config = datastoreService.ofy().load().type(Config.class).id(EnvConstants.APP_ID).now();
+        return config != null ? config : getEmptyConfig();
     }
 
     public static Config G(JsonObject obj){

@@ -91,7 +91,7 @@ public class CredentialService extends RetryableService {
 
     public Userinfoplus getCurrentUser(Credential credential) throws Throwable {
         final Oauth2 oauth2 = new Oauth2.Builder(Utils.HTTP_TRANSPORT, Utils.JSON_FACTORY, credential)
-                .setApplicationName(EnvConstants.getBaseURL()).build();
+                .setApplicationName(EnvConstants.APP_NAME).build();
         return execute(new Callable<Userinfoplus>() {
 
             @Override

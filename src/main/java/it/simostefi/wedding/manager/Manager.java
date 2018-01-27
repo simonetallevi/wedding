@@ -41,6 +41,7 @@ public abstract class Manager {
                 return credential;
             }
             if (techUser == null) {
+                log.info("loading tech user {}", Config.K.techUser.get());
                 techUser = datastoreService.ofy().load().type(TechUser.class).id(Config.K.techUser.get()).now();
             }
             return CredentialService.getCredential(techUser, Config.K.clientId.get(), Config.K.clientSecret.get());

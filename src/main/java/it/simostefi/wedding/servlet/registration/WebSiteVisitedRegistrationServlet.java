@@ -23,7 +23,7 @@ public class WebSiteVisitedRegistrationServlet extends AbstractServlet{
         Preconditions.checkNotNull(parameters.get("id"), "missing parameter");
         SenderManager manager = new SenderManager();
         manager.registerWeb(parameters.get("id"));
-        resp.sendRedirect("www.simostefi.it");
+        resp.sendRedirect("/");
     }
 
     @Override
