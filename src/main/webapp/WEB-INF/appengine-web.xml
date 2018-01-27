@@ -4,7 +4,7 @@
   <application>wedding-simostefi</application>
   <version>0-2</version>
 
-  <instance-class>F1</instance-class>
+  <instance-class>F2</instance-class>
 
   <!--
     Allows App Engine to send multiple requests to one instance in parallel:

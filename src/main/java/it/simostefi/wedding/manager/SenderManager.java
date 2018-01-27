@@ -2,6 +2,7 @@ package it.simostefi.wedding.manager;
 
 import au.com.bytecode.opencsv.CSVReader;
 import com.google.appengine.api.taskqueue.TaskOptions;
+import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableMap;
 import it.simostefi.wedding.config.EnvConstants;
 import it.simostefi.wedding.model.Email;
@@ -20,10 +21,16 @@ import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Slf4j
 public class SenderManager extends Manager {
+
+    private Joiner joiner = Joiner.on("#");
 
     public SenderManager() {
     }
@@ -32,13 +39,26 @@ public class SenderManager extends Manager {
         CSVReader reader = new CSVReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("inviti/inviti.csv")), ';');
         reader.readNext();
 
-        String[] tokens = null;
+        List<Email> alreadyStored = datastoreService.ofy().load().type(Email.class).list();
+        if (alreadyStored.isEmpty()) {
+            return;
+        }
+
+        Set<String> emailSent = new HashSet<>();
+        for(Email email : alreadyStored){
+            emailSent.add(joiner.join(email.getEmails()));
+        }
+
+        String[] tokens;
         List<Email> emails = new ArrayList<>();
         while ((tokens = reader.readNext()) != null) {
             if (tokens[0].isEmpty() || tokens[1].isEmpty()) {
                 continue;
             }
-            emails.add(Email.getEmail(tokens));
+            Email email = Email.getEmail(tokens);
+            if(!emailSent.contains(joiner.join(email.getEmails()))) {
+                emails.add(email);
+            }
         }
         datastoreService.ofy().save().entities(emails);
 
