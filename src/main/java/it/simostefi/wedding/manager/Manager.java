@@ -26,7 +26,7 @@ public abstract class Manager {
 
     private static TechUser techUser;
 
-    private static Cache<String, Credential> techUserCredential = CacheBuilder.newBuilder()
+    public static Cache<String, Credential> techUserCredential = CacheBuilder.newBuilder()
             .expireAfterWrite(45L, TimeUnit.MINUTES)
             .build();
 

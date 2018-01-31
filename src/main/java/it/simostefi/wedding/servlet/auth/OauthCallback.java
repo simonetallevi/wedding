@@ -3,6 +3,7 @@ package it.simostefi.wedding.servlet.auth;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.services.oauth2.model.Userinfoplus;
 import it.simostefi.wedding.config.EnvConstants;
+import it.simostefi.wedding.manager.Manager;
 import it.simostefi.wedding.model.Config;
 import it.simostefi.wedding.model.TechUser;
 import it.simostefi.wedding.service.credential.CredentialService;
@@ -49,6 +50,8 @@ public class OauthCallback extends HttpServlet {
 
                 DatastoreService datastoreService = new DatastoreService();
                 datastoreService.ofy().save().entity(techUser);
+
+                Manager.techUserCredential.cleanUp();
 
                 resp.setStatus(HttpServletResponse.SC_OK);
                 resp.sendRedirect(EnvConstants.getBaseURL());
