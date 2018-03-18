@@ -2,9 +2,13 @@ buildscript {    // Configuration for building
     repositories {
         jcenter()    // Bintray's repository - a fast Maven Central mirror & more
         mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
-        classpath 'com.google.cloud.tools:appengine-gradle-plugin:1.3.4'    // latest App Engine Gradle tasks
+        classpath 'com.google.appengine:gradle-appengine-plugin:1.9.59'    // latest App Engine Gradle tasks
+        classpath 'gradle.plugin.org.gradle.api.plugins:gradle-gaelyk-plugin:0.7.1'
     }
 }
 
@@ -19,11 +23,16 @@ repositories {   // repositories for Jar's you access in your code
 apply plugin: 'idea'
 apply plugin: 'java'// standard Java tasks
 apply plugin: 'war'                               // standard Web Archive plugin
-apply plugin: 'com.google.cloud.tools.appengine'  // App Engine tasks
+apply plugin: 'appengine'  // App Engine tasks
+apply plugin: 'org.gaelyk'
 
 dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.4.3'
+    appengineSdk "com.google.appengine:appengine-java-sdk:1.9.63"
+    compile 'org.gaelyk:gaelyk:2.1'
+
     providedCompile group: 'javax.servlet', name: 'servlet-api', version:'2.5'
-    compile group: 'com.googlecode.objectify', name: 'objectify', version: '5.1.21'
+    compile group: 'com.googlecode.objectify', name: 'objectify', version: '5.1.22'
     compile group: 'org.projectlombok', name: 'lombok', version: '1.16.18'
     compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
     compile group: 'com.google.guava', name: 'guava', version: '20.0'
@@ -38,30 +47,16 @@ dependencies {
     compile group: 'net.sf.opencsv', name: 'opencsv', version: '2.3'
 
     compile group: 'com.google.appengine.tools', name: 'appengine-gcs-client', version: '0.7'
-    compile group: 'com.google.appengine', name: 'appengine-tools-sdk', version: '1.9.60'
-    compile group: 'com.google.appengine', name: 'appengine-api-labs', version: '1.9.60'
-    compile group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: '1.9.60'
+    compile group: 'com.google.appengine', name: 'appengine-tools-sdk', version: '1.9.63'
+    compile group: 'com.google.appengine', name: 'appengine-api-labs', version: '1.9.63'
+    compile group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: '1.9.63'
     compile group: 'com.google.api-client', name:'google-api-client', version:'1.23.0'
     compile group: 'com.google.oauth-client', name:'google-oauth-client-jetty', version:'1.23.0'
     compile group: 'com.google.apis', name:'google-api-services-gmail', version:'v1-rev77-1.23.0'
     compile group: 'com.google.apis', name: 'google-api-services-oauth2', version: 'v2-rev133-1.23.0'
 
-    testCompile group: 'com.google.appengine', name: 'appengine-testing', version: '1.9.60'
-    testCompile group: 'com.google.appengine', name: 'appengine-api-stubs', version: '1.9.60'
-}
-
-appengine {  // App Engine tasks configuration
-    run {      // local (dev_appserver) configuration (standard environments only)
-        port = 8080
-        automaticRestart = true
-        //jvmFlags = ['-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005']
-        jvmFlags = ["-Dappengine.fullscan.seconds=5", "-Ddatastore.backing_store=\"/Users/tallesi001/IdeaProjects/wedding/src/main/resources/db\""]
-    }
-
-    deploy {   // deploy configuration
-        stopPreviousVersion = true  // default - stop the current version
-        promote = true              // default - & make this the current version
-    }
+    testCompile group: 'com.google.appengine', name: 'appengine-testing', version: '1.9.63'
+    testCompile group: 'com.google.appengine', name: 'appengine-api-stubs', version: '1.9.63'
 }
 
 group = 'it.simostefi.wedding'   // Generated output GroupId

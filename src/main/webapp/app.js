@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('wedding', ['ngAnimate', 'ngTouch', 'ui.bootstrap',
-        'ui.router', 'duScroll'])
+        'ui.router', 'duScroll', 'hj.gridify'])
 
     .config(['$stateProvider', '$urlRouterProvider',
         function($stateProvider, $urlRouterProvider) {
@@ -13,15 +13,27 @@
                     url: "/",
                     templateUrl: "partials/home/home.html",
                     controller: 'HomeCtrl as Home'
+                })
+                .state('photo', {
+                    url: "/photo",
+                    templateUrl: "partials/photo/photo.html",
+                    controller: 'PhotoCtrl as Photo'
                 });
 
             $urlRouterProvider.otherwise("/");
-
-            hello.init({
-            	google: "439589792339-ves9t10arfb5te3916sn108k89ugfjkc.apps.googleusercontent.com"
-            },{redirect_uri:'', scope:'https://www.googleapis.com/auth/userinfo.email'});
         }
     ])
+
+    .directive('backImg', function(){
+        return function(scope, element, attrs){
+            var url = attrs.backImg;
+            element.css({
+                'background-image': 'url(' + url +')',
+                'background-size' : 'cover',
+                'background-position': 'center'
+            });
+        };
+    })
 
     .directive('setHeight', ['$window', function($window) {
         return {
