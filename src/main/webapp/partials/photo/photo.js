@@ -2,41 +2,54 @@
     'use strict';
 
     angular.module('wedding')
-        .factory('PhotoService', PhotoService)
         .controller('PhotoCtrl', PhotoCtrl);
 
-    PhotoService.$inject = ['$rootScope', 'SERVICE', '$http', '$q', 'Utils'];
-    PhotoCtrl.$inject = ['$log', '$rootScope', 'PhotoService', '$timeout', '$window'];
+    PhotoCtrl.$inject = ['$log', '$rootScope', '$scope', 'SERVICE', 'Utils', '$http', '$timeout', '$window'];
 
-    function PhotoService($rootScope, SERVICE, $http, $q, Utils) {
+    function PhotoCtrl($log, $rootScope, $scope, SERVICE, Utils, $http, $timeout, $window) {
         var self = this;
-        return {
-
-        }
-    }
-
-    function PhotoCtrl($log, $rootScope, PhotoService, $timeout, $window) {
-        var self = this;
-
-           self.photos = [
-            "https://i.vimeocdn.com/portrait/58832_300x300",
-            "https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?h=350&dpr=2&auto=compress&cs=tinysrgb",
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwswZVnaDs2Sn9AyTVbEhdfGc3cCr3tbh_tiytTGd_cJf1d8_a"
-           ]
 
         self.collection = [];
         self.getPerRow = function() {
             return $window.innerWidth > 1000 ? 3 : 2;
         };
 
-        self.init = function() {
-            for (var i = 0; i < 50; i++) {
-                self.collection.push({
-                    ratio: Math.max(0.5, Math.random() * 2),
-                    color: '#' + ('000000' + Math.floor(Math.random() * 16777215).toString(16)).slice(-6),
-                    src: self.photos[i%3]
+        self.loadImg = function(){
+            var req = Utils.reqConfig("GET", 'https://api.flickr.com/services/rest/');
+            req.params['method'] = 'flickr.photosets.getPhotos';
+            req.params['photoset_id'] = '72157662294331840';
+            req.params['user_id'] = '49259625@N04';
+            req.params['api_key'] = 'aa2e9cd506ffb3374f4e5292d85e355e';
+            req.params['format'] = 'json';
+            req.params['nojsoncallback'] = '1';
+            req.params['extras'] = 'url_l';
+            req.params['per_page'] = 100;
+            req.params['page'] = 1;
+
+            $http(req)
+                .then(function(resp){
+                    console.log(resp);
+                    if(!resp.data.photoset
+                        || !resp.data.photoset.photo){
+                        console.log("No photo!");
+                        return
+                    }
+                    var photos = resp.data.photoset.photo;
+                    photos.forEach(function(p){
+                       self.collection.push({
+                           ratio: (p.width_l / p.height_l),
+                           color: '#' + ('000000' + Math.floor(Math.random() * 16777215).toString(16)).slice(-6),
+                           src: p.url_l
+                       });
+                    });
+                }, function(error){
+                    console.log(error);
                 });
-            }
+        }
+
+        self.init = function() {
+            $rootScope.navBarShrink(true);
+            self.loadImg();
         };
     }
 })();

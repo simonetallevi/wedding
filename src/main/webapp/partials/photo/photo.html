@@ -1,13 +1,15 @@
-<div ng-init="Photo.init()">
+<div ng-init="Photo.init()" class="photo">
 
-    <hj-gridify hj-gridify-options="{
+    <div class="photo-container">
+        <hj-gridify hj-gridify-options="{
         collection: Photo.collection,
         perRow: Photo.getPerRow,
         averageRatio: 1.5,
         gutter: 1}" hj-gridify-item-as="tile">
 
-        <div class="item" back-img="{{tile.src}}"></div>
+            <div class="item" back-img="{{tile.src}}"></div>
 
-    </hj-gridify>
+        </hj-gridify>
+    </div>
 
 </div>

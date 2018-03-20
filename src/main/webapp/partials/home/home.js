@@ -19,7 +19,7 @@
         var self = this;
 
         self.init = function() {
-
+            $rootScope.navBarShrink(false);
         };
     }
 })();
