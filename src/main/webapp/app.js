@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('wedding', ['ngAnimate', 'ngTouch', 'ui.bootstrap',
-        'ui.router', 'duScroll', 'hj.gridify'])
+        'ui.router', 'duScroll', 'hj.gridify', 'infinite-scroll'])
 
     .config(['$stateProvider', '$urlRouterProvider',
         function($stateProvider, $urlRouterProvider) {

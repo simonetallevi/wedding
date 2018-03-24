@@ -1,6 +1,6 @@
 <div ng-init="Photo.init()" class="photo">
 
-    <div class="photo-container">
+    <div infinite-scroll="Photo.loadNext()" infinite-scroll-distance="1" class="photo-container">
         <hj-gridify hj-gridify-options="{
         collection: Photo.collection,
         perRow: Photo.getPerRow,
@@ -11,5 +11,7 @@
 
         </hj-gridify>
     </div>
+
+    <md-button>Load more</md-button>
 
 </div>
