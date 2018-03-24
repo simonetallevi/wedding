@@ -68,6 +68,7 @@
         }
 
         self.init = function() {
+            $window.scrollTo(0, 0);
             $rootScope.navBarShrink(true);
             self.hasMore = true;
             self.loading = false;
