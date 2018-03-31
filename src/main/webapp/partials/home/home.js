@@ -19,6 +19,7 @@
         var self = this;
 
         self.init = function() {
+            $window.scrollTo(0, 0);
             $rootScope.navBarShrink(false);
         };
     }
