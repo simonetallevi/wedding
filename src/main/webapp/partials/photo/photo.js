@@ -33,21 +33,29 @@
                 controller: function(items){
                     var $ctrl = this;
                     $ctrl.inputs = items;
-                    $ctrl.currentIndex = index;
-                    $ctrl.tile = tile;
+                    $ctrl.currentIndex = index - 1;
+                    $ctrl.hasLess = false;
+                    $ctrl.hasMore = false;
+
+                    $ctrl.hasLessMore = function(){
+                        if($ctrl.currentIndex > 0){
+                            $ctrl.hasLess = true;
+                        }else{
+                            $ctrl.hasLess = false;
+                        }
+                        if($ctrl.currentIndex + 1 < $ctrl.inputs.length){
+                            $ctrl.hasMore = true;
+                        }else{
+                            $ctrl.hasMore = false;
+                        }
+                    }
 
                     $ctrl.next = function(){
                         if($ctrl.currentIndex + 1 < $ctrl.inputs.length){
                             $ctrl.currentIndex += 1;
                             $ctrl.tile = $ctrl.inputs[$ctrl.currentIndex];
-                            return;
                         }
-
-                        var status = {
-                           play: $ctrl.play
-                        };
-
-                        $scope.$emit("LOAD-MORE", status);
+                        $ctrl.hasLessMore();
                     }
 
                     $ctrl.back = function(){
@@ -56,6 +64,7 @@
                         }
                         $ctrl.currentIndex -= 1;
                         $ctrl.tile = $ctrl.inputs[$ctrl.currentIndex];
+                        $ctrl.hasLessMore();
                     }
 
                     $ctrl.togglePlay = function(){
@@ -80,6 +89,10 @@
                         } else if ($event.keyCode == 37){
                             $ctrl.back();
                         }
+                    }
+
+                    $ctrl.init = function(){
+                        $ctrl.next()
                     }
               },
               controllerAs: 'Modal',

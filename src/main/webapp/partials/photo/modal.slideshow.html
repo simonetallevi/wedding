@@ -1,12 +1,12 @@
-<div class="modal-body" >
+<div class="modal-body" ng-init="Modal.init()">
     <img ng-src="{{Modal.tile.src}}" style="max-width: 100%; max-height: 600px;">
     <button ng-click="Modal.close()" class="sliderCommands close-button" aria-label="Close">
         <i class="fa fa-times-circle" aria-hidden="true"></i>
     </button>
-    <button ng-click="Modal.back()" class="sliderCommands back-button" aria-label="Back">
+    <button ng-if="Modal.hasLess" ng-click="Modal.back()" class="sliderCommands back-button" aria-label="Back">
         <i class="fa fa-chevron-left" aria-hidden="true"></i>
     </button>
-    <button ng-click="Modal.next()" class="sliderCommands next-button" aria-label="Next">
+    <button ng-if="Modal.hasMore" ng-click="Modal.next()" class="sliderCommands next-button" aria-label="Next">
         <i class="fa fa-chevron-right" aria-hidden="true"></i>
     </button>
 </div>
