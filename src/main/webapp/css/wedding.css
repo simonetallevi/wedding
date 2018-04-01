@@ -21,6 +21,76 @@ body {
     background-color: #00838F;
 }
 
+.modal.fade .modal-dialog{
+    transition: -webkit-transform .3s ease-out;
+    transition: transform .3s ease-out;
+    transition: transform .3s ease-out,-webkit-transform .3s ease-out;
+    -webkit-transform: translate(0,0%);
+    transform: translate(0,0%);
+}
+
+button:focus {outline:0;}
+
+.close-button,
+.back-button,
+.next-button{
+    position: absolute;
+    background: transparent;
+    border: 0;
+    outline: none;
+}
+
+.close-button{
+    top: -28px;
+    right: -29px;
+    z-index: 10000;
+    width: 80px;
+    height: 80px;
+}
+
+.back-button,
+.next-button {
+    top: 0;
+    width: 100px;
+    height: 100%;
+}
+
+.back-button{
+    left: -6px;
+    text-align: left;
+}
+
+.next-button{
+    right: -6px;
+    text-align: right;
+}
+
+.modal-dialog{
+    max-width: fit-content;
+    display: flex;
+    align-items: center;
+    max-height: 100%;
+    height: 100%;
+}
+
+.modal-content{
+}
+
+.modal-body{
+}
+
+#modal-parent{
+    position:absolute;
+}
+
+.modal-open .modal{
+   opacity: 1;
+   overflow: visible;
+}
+.modal-backdrop.fade{
+    opacity: 0.5;
+}
+
 html {
     width: 100%;
     height: 100%;
@@ -254,6 +324,10 @@ a:hover {
     background-size: cover;
 }
 
+#maphoneymoon{
+     width: 100%;
+     height: 1000px;
+ }
 #map {
     width: 100%;
     height: 600px;
@@ -262,6 +336,9 @@ a:hover {
 @media (min-width: 992px) {
     .content-section {
         padding-top: 100px;
+    }
+    #maphoneymoon{
+        height: 600px;
     }
     #map {
         height: 350px;

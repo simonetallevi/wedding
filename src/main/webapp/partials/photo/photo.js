@@ -4,9 +4,9 @@
     angular.module('wedding')
         .controller('PhotoCtrl', PhotoCtrl);
 
-    PhotoCtrl.$inject = ['$log', '$rootScope', '$scope', 'SERVICE', 'Utils', '$http', '$timeout', '$window'];
+    PhotoCtrl.$inject = ['$log', '$rootScope', '$scope', 'SERVICE', 'Utils', '$http', '$timeout', '$window', '$uibModal', '$document'];
 
-    function PhotoCtrl($log, $rootScope, $scope, SERVICE, Utils, $http, $timeout, $window) {
+    function PhotoCtrl($log, $rootScope, $scope, SERVICE, Utils, $http, $timeout, $window, $uibModal, $document) {
         var self = this;
 
         self.hasMore = true;
@@ -22,6 +22,80 @@
                 console.log("LOAD - NEXT " + self.currentPage);
                 self.loadImg();
             }
+        }
+
+        self.selectImg = function(index, tile){
+            console.log(index, tile);
+            var parentElem = angular.element($document[0].querySelector('#modal-parent'));
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'partials/photo/modal.slideshow.html',
+                controller: function(items){
+                    var $ctrl = this;
+                    $ctrl.inputs = items;
+                    $ctrl.currentIndex = index;
+                    $ctrl.tile = tile;
+
+                    $ctrl.next = function(){
+                        if($ctrl.currentIndex + 1 < $ctrl.inputs.length){
+                            $ctrl.currentIndex += 1;
+                            $ctrl.tile = $ctrl.inputs[$ctrl.currentIndex];
+                            return;
+                        }
+
+                        var status = {
+                           play: $ctrl.play
+                        };
+
+                        $scope.$emit("LOAD-MORE", status);
+                    }
+
+                    $ctrl.back = function(){
+                        if($ctrl.currentIndex - 1 < 0){
+                            return
+                        }
+                        $ctrl.currentIndex -= 1;
+                        $ctrl.tile = $ctrl.inputs[$ctrl.currentIndex];
+                    }
+
+                    $ctrl.togglePlay = function(){
+                        $ctrl.play = !$ctrl.play;
+                        if($ctrl.play){
+                            $ctrl.playNext();
+                        }else{
+                            $timeout.cancel($ctrl.timeoutPlay);
+                        }
+                    }
+
+                    $ctrl.close = function(){
+                        $timeout.cancel($ctrl.timeoutPlay);
+                        $ctrl.hide = false;
+                        $ctrl.play = false;
+                        modalInstance.dismiss();
+                    }
+
+                    $ctrl.keyEvents = function($event){
+                        if ($event.keyCode == 39){
+                            $ctrl.next();
+                        } else if ($event.keyCode == 37){
+                            $ctrl.back();
+                        }
+                    }
+              },
+              controllerAs: 'Modal',
+              appendTo: parentElem,
+              resolve: {
+                items: function () {
+                  return self.collection
+                }
+              }
+            });
+
+            modalInstance.result.then(function(){
+              //Get triggers when modal is closed
+             }, function(){
+              //gets triggers when modal is dismissed.
+             });
         }
 
         self.loadImg = function(){

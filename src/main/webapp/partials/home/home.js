@@ -6,7 +6,7 @@
         .controller('HomeCtrl', HomeCtrl);
 
     HomeService.$inject = ['$rootScope', 'SERVICE', '$http', '$q', 'Utils'];
-    HomeCtrl.$inject = ['$log', '$rootScope', 'HomeService', '$timeout'];
+    HomeCtrl.$inject = ['$log', '$rootScope', 'HomeService', '$timeout', '$window'];
 
     function HomeService($rootScope, SERVICE, $http, $q, Utils) {
         var self = this;
@@ -15,7 +15,7 @@
         }
     }
 
-    function HomeCtrl($log, $rootScope, HomeService, $timeout) {
+    function HomeCtrl($log, $rootScope, HomeService, $timeout, $window) {
         var self = this;
 
         self.init = function() {
