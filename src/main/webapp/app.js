@@ -18,6 +18,11 @@
                     url: "/photo",
                     templateUrl: "partials/photo/photo.html",
                     controller: 'PhotoCtrl as Photo'
+                })
+                .state('itinerary', {
+                    url: "/itinerary",
+                    templateUrl: "partials/itinerary/itinerary.html",
+                    controller: 'ItineraryCtrl as Itinerary'
                 });
 
             $urlRouterProvider.otherwise("/");
@@ -83,29 +88,55 @@
             return {
                 scope: {
                     map: '@',
-                    marker: '@'
                 },
                 link: function(scope, element, attrs) {
                     var mapOptions = {
-                        zoom: 5,
-                        center: new google.maps.LatLng(HONEYMOON.lat, HONEYMOON.long), // New York
-                        disableDefaultUI: true,
-                        scrollwheel: false,
-                        draggable: false,
+//                        zoom: 5,
+//                        center: new google.maps.LatLng(HONEYMOON.lat, HONEYMOON.long),
+                        disableDefaultUI: false,
+                        scrollwheel: true,
+                        draggable: true,
                         styles: MAP.styles
                     };
+
+                    var line = [];
                     scope.map = new google.maps.Map(element[0], mapOptions);
-
-                    scope.marker = new google.maps.Marker({
-                        map: scope.map,
-                        draggable: false,
-                        animation: google.maps.Animation.DROP,
-                        position: { lat: HONEYMOON.lat, lng: HONEYMOON.long }
+                    var markers = [];
+                    var infos = [];
+                    HONEYMOON.itinerary.forEach(function(loc){
+                        var marker = new google.maps.Marker({
+                            map: scope.map,
+                            title: loc.title,
+                            draggable: false,
+                            animation: google.maps.Animation.DROP,
+                            position: { lat: loc.lat, lng: loc.long }
+                        });
+                        var info = new google.maps.InfoWindow({
+                          content: loc.title
+                        });
+                        marker.addListener('click', function(e) {
+                            infos.forEach(function(i){
+                                i.close();
+                            });
+                            info.open(scope.map, marker);
+                        });
+                        line.push({ lat: loc.lat, lng: loc.long });
+                        infos.push(info);
+                        markers.push(marker);
                     });
-
-                    scope.marker.addListener('click', function() {
-                        window.open("https://www.google.it/maps/place/Maklas/@39.2018075,9.5634451,15z/data=!4m5!3m4!1s0x0:0xa374f950792d396a!8m2!3d39.2018075!4d9.5634451", '_blank');
+                    var flightPath = new google.maps.Polyline({
+                        path: line,
+                        geodesic: true,
+                        strokeColor: '#FF0000',
+                        strokeOpacity: 1.0,
+                        strokeWeight: 2
                     });
+                    var bounds = new google.maps.LatLngBounds();
+                    for (var i = 0; i < markers.length; i++) {
+                        bounds.extend(markers[i].getPosition());
+                    }
+                    flightPath.setMap(scope.map);
+                    scope.map.fitBounds(bounds);
                 },
                 controller: function() {}
             };
@@ -115,6 +146,10 @@
         function($rootScope, $log, $timeout) {
             $rootScope.initialized = true;
             $rootScope.showSpinner = false;
+
+            $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
+                console.log(event, toState, toParams, fromState, fromParams);
+            });
         }
     ])
 })();

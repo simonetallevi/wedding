@@ -326,22 +326,28 @@ a:hover {
 
 #maphoneymoon{
      width: 100%;
-     height: 1000px;
+     height: 100%;
  }
 #map {
     width: 100%;
-    height: 600px;
+    height: 400px;
+}
+
+.map-link{
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+.highlight{
+    color:red;
 }
 
 @media (min-width: 992px) {
     .content-section {
         padding-top: 100px;
     }
-    #maphoneymoon{
-        height: 600px;
-    }
     #map {
-        height: 350px;
+        height: 400px;
     }
 }
 
@@ -466,9 +472,11 @@ body {
 	height: 100%;
 }
 
-.photo{
+.itinerary{
+    color: black;
 }
 
+.itinerary-container,
 .photo-container{
     background-color: black;
     margin-top: 67px;
