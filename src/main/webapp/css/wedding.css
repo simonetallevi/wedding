@@ -476,6 +476,10 @@ body {
     color: black;
 }
 
+.itinerary .link{
+    color: black;
+}
+
 .itinerary-container,
 .photo-container{
     background-color: black;

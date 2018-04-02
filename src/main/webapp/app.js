@@ -112,7 +112,7 @@
                             position: { lat: loc.lat, lng: loc.long }
                         });
                         var info = new google.maps.InfoWindow({
-                          content: loc.title
+                          content: '<a class="link" href="'+loc.link+'">'+loc.title+'</a>'
                         });
                         marker.addListener('click', function(e) {
                             infos.forEach(function(i){
