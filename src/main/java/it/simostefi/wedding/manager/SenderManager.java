@@ -76,7 +76,7 @@ public class SenderManager extends Manager {
         if (emails.isEmpty()) {
             return;
         }
-        InputStream reader = getClass().getClassLoader().getResourceAsStream("email_template/email-flick.html");
+        InputStream reader = getClass().getClassLoader().getResourceAsStream("email_template/email-flickr.html");
         StringWriter writer = new StringWriter();
         IOUtils.copy(reader, writer, "UTF-8");
         String body = writer.toString();
