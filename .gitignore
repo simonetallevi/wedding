@@ -81,3 +81,4 @@ target/
 /src/main/resources/db/local_db.bin
 /src/main/resources/attachments/
 /src/main/resources/key/config.json
+/src/main/resources/email_template/email-flickr.html

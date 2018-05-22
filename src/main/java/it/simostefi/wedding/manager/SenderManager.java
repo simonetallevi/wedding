@@ -76,9 +76,7 @@ public class SenderManager extends Manager {
         if (emails.isEmpty()) {
             return;
         }
-        InputStream reader = getClass().getClassLoader().getResourceAsStream("email_template/email.html");
-        URL alberghi = getClass().getClassLoader().getResource("attachments/Stefania&Simone-alberghi.pdf");
-        URL partecipazioni  = getClass().getClassLoader().getResource("attachments/Stefania&Simone-partecipazioni.pdf");
+        InputStream reader = getClass().getClassLoader().getResourceAsStream("email_template/email-flick.html");
         StringWriter writer = new StringWriter();
         IOUtils.copy(reader, writer, "UTF-8");
         String body = writer.toString();
@@ -91,10 +89,7 @@ public class SenderManager extends Manager {
                     "SALUTATION", email.getSalutation(),
                     "BASEURL", EnvConstants.getBaseURL(),
                     "ID", email.getId()));
-            Email sentEmail = gmailService.sendEmail(email, "Nozze Stefania & Simone", customisedBody,
-                    ImmutableMap.of(
-                            partecipazioni.getPath(), "Stefania & Simone - partecipazioni.pdf",
-                            alberghi.getPath(), "Stefania & Simone - alberghi.pdf"));
+            Email sentEmail = gmailService.sendEmail(email, "Ci siamo quasi...", customisedBody, new HashMap<String, String>());
             datastoreService.ofy().save().entity(sentEmail);
         }
 
